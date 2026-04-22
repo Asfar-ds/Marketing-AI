@@ -32,13 +32,19 @@ app.add_middleware(
 )
 
 # ── Serve static frontend files ──
-FRONTEND_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend")
+FRONTEND_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "public")
 app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 
 
 @app.get("/")
 def home():
     return {"message": "FastAPI deployed on Vercel 🚀"}
+
+
+    # Your routes here
+@app.get("/api/test")
+def test():
+    return {"message": "Hello"}
 
 # ── Pydantic models ──
 class BusinessInput(BaseModel):
