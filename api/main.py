@@ -36,6 +36,10 @@ FRONTEND_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "fronten
 app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
 
 
+@app.get("/")
+def home():
+    return {"message": "FastAPI deployed on Vercel 🚀"}
+
 # ── Pydantic models ──
 class BusinessInput(BaseModel):
     num_users: int
