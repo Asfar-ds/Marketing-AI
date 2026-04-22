@@ -7,8 +7,6 @@ Includes human feedback loop for content regeneration.
 import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import Optional, List
 from langchain_groq import ChatGroq
@@ -31,20 +29,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ── Serve static frontend files ──
-FRONTEND_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "public")
-app.mount("/static", StaticFiles(directory=FRONTEND_DIR), name="static")
-
-
-@app.get("/")
-def home():
-    return {"message": "FastAPI deployed on Vercel 🚀"}
-
-
-    # Your routes here
-@app.get("/api/test")
-def test():
-    return {"message": "Hello"}
+@app.get("/api/health")
+def health():
+    return {"status": "ok", "message": "AI Marketing Agent API is running 🚀"}
 
 # ── Pydantic models ──
 class BusinessInput(BaseModel):
